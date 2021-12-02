@@ -1,47 +1,32 @@
 """ https://adventofcode.com/2021/day/1 """
-from functools import reduce
-import aocd  # type: ignore
 
 
-def count_depth_increases(input_data: list[str]) -> int:
+def get_input_data(input_text: str) -> list[int]:
+    depths = [int(line) for line in input_text.splitlines()]
+    return depths
+
+
+def count_depth_increases(depths: list[int]) -> int:
     count = 0
 
-    def depth_increase(a: str, b: str):
-        nonlocal count
-        if int(b) > int(a):
-            count = count + 1
-        return b
-
-    reduce(depth_increase, input_data)
-    return count
-
-
-def count_depth_increases_sliding_window(input_data: list[str]) -> int:
-    def get_3_seq_sum(input_data: list[str], index: int) -> int:
-        return (
-            int(input_data[index])
-            + int(input_data[index + 1])
-            + int(input_data[index + 2])
-        )
-
-    data_len = len(input_data)
-    seq_sums = (get_3_seq_sum(input_data, index) for index in range(0, data_len - 2))
-
-    count = 0
-
-    def depth_increase(a: int, b: int):
-        nonlocal count
+    for (a, b) in zip(depths, depths[1:]):
         if b > a:
-            count = count + 1
-        return b
+            count += 1
+    return count
 
-    reduce(depth_increase, seq_sums)
+
+def count_depth_increases_sliding_window(depths: list[int]) -> int:
+    count = 0
+    window_sums = [a + b + c for (a, b, c) in zip(depths, depths[1:], depths[2:])]
+    for (a, b) in zip(window_sums, window_sums[1:]):
+        if b > a:
+            count += 1
 
     return count
 
 
-def main_1():
-    input_data = """\
+if __name__ == "__main__":
+    input_text = """\
 199
 200
 208
@@ -51,21 +36,17 @@ def main_1():
 240
 269
 260
-263""".splitlines()
-    assert count_depth_increases(input_data) == 7
-    assert count_depth_increases_sliding_window(input_data) == 5
+263"""
+    depths = get_input_data(input_text)
+    assert count_depth_increases(depths) == 7
+    assert count_depth_increases_sliding_window(depths) == 5
 
+    with open("day01/input.txt", "r") as file:
+        input_text = file.read()
+        depths = get_input_data(input_text)
 
-def main_2():
-    input_data = aocd.get_data(year=2021, day=1).splitlines()  # type: ignore
+        part_1_answer = count_depth_increases(depths)
+        print(f"{part_1_answer = }")
 
-    part_1_answer = count_depth_increases(input_data)
-    print(f"{part_1_answer = }")
-
-    part_2_answer = count_depth_increases_sliding_window(input_data)
-    print(f"{part_2_answer = }")
-
-
-if __name__ == "__main__":
-    main_1()
-    main_2()
+        part_2_answer = count_depth_increases_sliding_window(depths)
+        print(f"{part_2_answer = }")
