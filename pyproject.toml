@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "advent-of-code-2021-python"
+version = "0.1.0"
+description = "Code puzzles from https://adventofcode.com for Dec 2021"
+authors = ["srini4000 <srini4000@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aocd = "^0.1"
+
+[tool.poetry.dev-dependencies]
+ipykernel = "^6.6.0"
+pytest = "^6.2.5"
+black = "^21.11b1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

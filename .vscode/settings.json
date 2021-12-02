@@ -1,0 +1,15 @@
+{
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.testing.pytestArgs": ["."],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportUnusedImport": "information",
+    "reportUnusedClass": "information",
+    "reportUnusedFunction": "information",
+    "reportUnusedVariable": "information"
+  }
+}
