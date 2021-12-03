@@ -7,7 +7,6 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aocd = "^0.1"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.6.0"
