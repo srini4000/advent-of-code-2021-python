@@ -33,7 +33,7 @@ def part_1(input_text: str) -> int:
 
 
 """
-find_rating is a recursing function
+find_rating is a recursive function
 - apply bit criteria to each bit_position
 - If multiple nums are found, then search filtered nums for next bit position
 using recursion
@@ -44,6 +44,7 @@ def find_rating(input_data: list[str], bit_position: int, is_oxygen: bool) -> in
     n = len(input_data)
     n_bits = len(input_data[0])
     for c in range(bit_position, n_bits):
+        # c is current_column being processed
         column_nums = [input_data[i] for i in range(n)]
         column_bits = [s[bit_position] for s in column_nums]
         if is_oxygen:
