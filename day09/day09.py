@@ -34,14 +34,14 @@ class HeightMap:
         (x, y) = id
         return 0 <= x < self.width and 0 <= y < self.height
 
-    def neibhors(self, id: LOCATION) -> Iterator[LOCATION]:
-        """Return list of neibhours locations"""
+    def neighbors(self, id: LOCATION) -> Iterator[LOCATION]:
+        """Return list of neighbors locations"""
         (x, y) = id
-        neibhors = [(x + 1, y), (x - 1, y), (x, y - 1), (x, y + 1)]  # R,L,U,D
-        return (p for p in neibhors if self.in_bounds(p))
+        neighbors = [(x + 1, y), (x - 1, y), (x, y - 1), (x, y + 1)]  # R,L,U,D
+        return (p for p in neighbors if self.in_bounds(p))
 
     def is_low_point(self, p: LOCATION) -> bool:
-        return all(self.grid[neibhor] > self.grid[p] for neibhor in self.neibhors(p))
+        return all(self.grid[neighbor] > self.grid[p] for neighbor in self.neighbors(p))
 
     def low_points(self) -> Iterator[LOCATION]:
         """Returns list of low points"""
@@ -59,12 +59,12 @@ class HeightMap:
         while len(Q) != 0:
             p = Q.popleft()
             visited.add(p)
-            neibhors = self.neibhors(p)
+            neighbors = self.neighbors(p)
             basin_locations.append(p)
-            for neibhor in neibhors:
-                if neibhor not in visited and self.grid[neibhor] != 9:
-                    visited.add(neibhor)
-                    Q.append(neibhor)
+            for neighbor in neighbors:
+                if neighbor not in visited and self.grid[neighbor] != 9:
+                    visited.add(neighbor)
+                    Q.append(neighbor)
         return len(basin_locations)
 
 
